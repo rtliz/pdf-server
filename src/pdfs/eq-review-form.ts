@@ -1,9 +1,22 @@
 import { setTemplatePdf } from "./template";
+export const leftpage = {
+  text: 'leftpage'
+}
+
+export const rightpage = {
+  text: 'rightpage'
+}
+
 
 export const content = [
-    { text: 'EQ Review', fontSize: 20, bold: true },
-    { text: 'รายละเอียดรีวิว', fontSize: 14 },
-    // เพิ่มเนื้อหาอื่น ๆ ตามต้องการ
+  {
+			alignment: 'justify',
+			columns: [
+				 leftpage,
+				rightpage
+			]
+		}
+
   ]
 
 export function getEQReviewForm(data: any) {
@@ -11,7 +24,8 @@ export function getEQReviewForm(data: any) {
   var documentForm = data;
   console.log('documentForm: ', documentForm);
   return {
-    pageSize: 'A4',
+    pageSize:  'A4', 
+    pageOrientation: 'landscape',
     pageMargins: [20, 20, 20, 20],
     info: {
       title: 'EQReviewForm',
