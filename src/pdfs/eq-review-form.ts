@@ -42,7 +42,7 @@ function checkbox(y = 2, x = 0) {
         type: 'rect',
         x: x, y: y,
         w: 8, h: 8,
-        lineWidth: 0.5,
+        lineWidth: 0.3,
         lineColor: '#4E4E4E'
       }
     ],
@@ -58,7 +58,7 @@ function circle() {
         y: 7,
         r1: 8,
         r2: 8,
-        lineWidth: 0.5,
+        lineWidth: 0.3,
         lineColor: '#4E4E4E'
       }
     ],
@@ -94,8 +94,10 @@ function layoutFormDescription(body, widths, margin?) {
     },
     layout: {
       defaultBorder: false,
+      hLineWidth: () => 1, // ความหนาเส้น
+      vLineWidth: () => 1,
       hLineStyle: function () {
-        return { dash: { length: 1, space: 1 } }; // เส้นประ
+        return { dash: { length: 0.2, space: 2 } }; // เส้นประ
       }
     }
   }
@@ -324,6 +326,9 @@ function genarateAnswers(data, maxCol?, part2Questions?, CRMInterface?) {
       layout: layout
     };
 
+    if (CRMInterface == "marital_status") {
+
+    }
     if (approxWidth > maxColumnWidth) {
       col["colSpan"] = maxColumnsPerRow - currentRow.length;
       currentRow.push(col);
@@ -447,11 +452,7 @@ function questionSectionMediaOnlineOffline(collection) {
 function questionSection(collection, no, CRMInterface, PartNo) {
   let part2 = collection?.find(f => f.PartNo === PartNo);
   let data = part2?.Questions?.find(f => f.CRMInterface === CRMInterface)
-
-
   let dataContent = genarateAnswers(data, null, part2?.Questions, CRMInterface)
-
-
   return [
     questionSectionHeader(no + ". " + data.QuestionTitle),
     dataContent
