@@ -2,13 +2,13 @@ import { Request, Response } from 'express';
 import { createPdf } from '../utils/pdfGenerator';
 
 export function generatePdf(req: Request, res: Response) {
-    const { docDefinition } = req.body;
+    const body = req.body;
 
-    if (!docDefinition) {
-        return res.status(400).json({ error: 'docDefinition is required' });
+    if (!body) {
+        return res.status(400).json({ error: 'body is required' });
     }
 
-    createPdf(docDefinition)
+    createPdf(body)
         .then((filePath) => {
             res.setHeader('Content-Type', 'application/pdf');
             res.setHeader('Content-Disposition', 'attachment; filename=document.pdf');

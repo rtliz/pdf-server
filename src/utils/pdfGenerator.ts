@@ -5,9 +5,9 @@ import PdfPrinter from 'pdfmake';
 
 export function createPdf(docDefinition: any): Promise<string> {
     const fonts = {
-        THSarabun: {
-            normal: 'fonts/THSarabun-Bold.ttf',
-            bold: 'fonts/THSarabun.ttf'
+        AP: {
+            normal: 'fonts/AP-Regular.ttf',
+            bold: 'fonts/AP-Bold.ttf'
         }
     };
 
@@ -15,7 +15,8 @@ export function createPdf(docDefinition: any): Promise<string> {
 
     const printer = new PdfPrinter(fonts);
     const pdfDoc = printer.createPdfKitDocument(document);
-    const filePath = path.join(__dirname, '../../dist', `review_form_${new Date().getTime()}.pdf`);
+    // const filePath = path.join(__dirname, '../../dist', `review_form_${new Date().getTime()}.pdf`);
+    const filePath = path.join(__dirname, '../../dist', `review_form.pdf`);
     const writeStream = fs.createWriteStream(filePath);
 
     pdfDoc.pipe(writeStream);

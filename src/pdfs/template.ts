@@ -1,9 +1,10 @@
 
 export const setTemplatePdf: SetTemplatePdf[] = [
   {
+    colorPrimary: '#4E4E4E',
     fontColorHeader: '#000',
 
-    fontSize: 10,// default
+    fontSize: 7.5,// default
     fontSizeHeader: 14,
     fontSizeHeader1: 11,
 
@@ -13,11 +14,12 @@ export const setTemplatePdf: SetTemplatePdf[] = [
     tableFill: '#e38844',
     tableBorder: '#e38844',
 
-    fontStyleTh: 'THSarabun'
+    fontStyleTh: 'AP'
   }
 ];
 
 export interface SetTemplatePdf {
+  colorPrimary?: string,
   fontColorHeader: string,
 
   fontSize: number,// default
