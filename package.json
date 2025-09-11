@@ -7,6 +7,7 @@
     "start": "npx ts-node src/app.ts"
   },
   "dependencies": {
+    "canvas": "^3.2.0",
     "dotenv": "^17.2.2",
     "express": "^4.17.1",
     "pdfmake": "^0.1.69"

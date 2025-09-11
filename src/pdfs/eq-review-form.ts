@@ -246,7 +246,6 @@ function formDescription(collection) {
     layoutFormDescription(result[3], ['auto', '*', 'auto', '*', 'auto', '*']),
     layoutFormDescription(result[4], ['auto', 'auto', '*']),
     layoutFormDescription(result[5], ['auto', '*', 'auto', '*', 'auto', '*'], [0, -4, 0, 5]),
-
   ]
 }
 
@@ -282,6 +281,13 @@ function questionSectionHeader(text, body?) {
     layout: 'noBorders',
   }
 }
+const { createCanvas } = require('canvas');
+function getTextWidth(text, font = 'AP') {
+  const canvas = createCanvas(1, 1);
+  const ctx = canvas.getContext('2d');
+  ctx.font = font;
+  return ctx.measureText(text).width;
+}
 
 function genarateAnswers(data, maxCol?, part2Questions?, CRMInterface?) {
   let maxColumnsPerRow = maxCol || 4; // จำนวน column สูงสุดต่อ row
@@ -290,16 +296,15 @@ function genarateAnswers(data, maxCol?, part2Questions?, CRMInterface?) {
   let currentRow = [];
 
   data?.Answers?.forEach((m, i) => {
-    const approxWidth = 15 + m.AnswerText.length * 6; // ประมาณความกว้าง
-
+    const approxWidth = getTextWidth(m.AnswerText, 'AP');
     let widthCol = ['auto', '*']
-    let body = [checkbox(), m.AnswerText]
+    let body: any = [checkbox(), { text: m.AnswerText, margin: [-2, 0, 0, 0] }]
     let layout: any = 'noBorders'
     if (m.AnswerType == 2) {
       let answerOther = []
       answerOther.push(textLabel(m.AnswerText, null, [0, 0, 0, -4]))
       answerOther.push(borderBottom())
-      body = [checkbox(2, -5), layoutFormDescription(answerOther, ['auto', '*'], [-5, -2, 0, 0])]
+      body = [checkbox(2, -5), layoutFormDescription(answerOther, ['auto', '*'], [-7, -2, 0, 0])]
       layout = {
         defaultBorder: false,
         hLineWidth: () => 0,
@@ -330,6 +335,10 @@ function genarateAnswers(data, maxCol?, part2Questions?, CRMInterface?) {
 
     }
     if (approxWidth > maxColumnWidth) {
+      if (m.AnswerText == "เพื่อพักอาศัยเป็นครั้งคราว") {
+        col["colSpan"] = 2;
+      }
+      const currentRowLength = currentRow.length || 3;
       col["colSpan"] = maxColumnsPerRow - currentRow.length;
       currentRow.push(col);
       while (currentRow.length < maxColumnsPerRow) currentRow.push({}); // เติมช่องว่างสำหรับ colSpan
@@ -388,7 +397,7 @@ function genarateAnswers(data, maxCol?, part2Questions?, CRMInterface?) {
         vLineWidth: () => 0,
         paddingTop: () => 0,
         paddingBottom: () => 0,
-      }
+      },
     });
   }
 
@@ -551,8 +560,8 @@ function layout(data) {
   return [
     {
       columns: [
-        { stack: items.slice(0, half) },
-        { stack: items.slice(half) }
+        { stack: items.slice(0, half), width: 398 },
+        { stack: items.slice(half), width: 398 }
       ],
       columnGap: 15
     },
@@ -577,7 +586,7 @@ export function getEQReviewForm(data: any) {
   return {
     pageSize: "A4",
     pageOrientation: "landscape",
-    pageMargins: [20, 10, 20, 0],
+    pageMargins: [15, 10, 15, 0],
     info: {
       title: "EQReviewForm",
       author: "equestionnaire",
