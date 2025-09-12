@@ -281,11 +281,12 @@ function questionSectionHeader(text, body?) {
     layout: 'noBorders',
   }
 }
+let setting = setTemplatePdf[0];
 const { createCanvas } = require('canvas');
 function getTextWidth(text, font = 'AP') {
   const canvas = createCanvas(1, 1);
   const ctx = canvas.getContext('2d');
-  ctx.font = font;
+  ctx.font = setting.fontSize + ' "' + setting.colorPrimary + '"';
   return ctx.measureText(text).width;
 }
 
@@ -297,6 +298,7 @@ function genarateAnswers(data, maxCol?, part2Questions?, CRMInterface?) {
 
   data?.Answers?.forEach((m, i) => {
     const approxWidth = getTextWidth(m.AnswerText, 'AP');
+    console.log('approxWidth: ', m.AnswerText, approxWidth);
     let widthCol = ['auto', '*']
     let body: any = [checkbox(), { text: m.AnswerText, margin: [-2, 0, 0, 0] }]
     let layout: any = 'noBorders'
@@ -345,7 +347,7 @@ function genarateAnswers(data, maxCol?, part2Questions?, CRMInterface?) {
 
       occupationContent.push({
         table: {
-          widths: Array(maxColumnsPerRow).fill('*'),
+          widths: Array(maxColumnsPerRow).fill(100),
           body: [currentRow],
         },
         layout: {
@@ -366,7 +368,7 @@ function genarateAnswers(data, maxCol?, part2Questions?, CRMInterface?) {
         occupationContent.push({
           padding: [0, 0, 0, 0],
           table: {
-            widths: Array(maxColumnsPerRow).fill('*'),
+            widths: Array(maxColumnsPerRow).fill(100),
             body: [currentRow]
           },
           layout: {
@@ -389,7 +391,7 @@ function genarateAnswers(data, maxCol?, part2Questions?, CRMInterface?) {
       margin: [0, 0, 0, 0],
       padding: [0, 0, 0, 0],
       table: {
-        widths: Array(maxColumnsPerRow).fill('*'), body: [currentRow]
+        widths: Array(maxColumnsPerRow).fill(100), body: [currentRow]
       },
       layout: {
         defaultBorder: false,
@@ -581,7 +583,6 @@ function layout(data) {
 // }
 
 export function getEQReviewForm(data: any) {
-  let setting = setTemplatePdf[0];
   var documentForm = data;
   return {
     pageSize: "A4",
