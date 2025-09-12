@@ -5,6 +5,8 @@
   "main": "src/app.js",
   "scripts": {
     "start": "npx ts-node src/app.ts",
+    "build": "tsc",
+    "start:prod": "node dist/src/app.js",
     "build:docker": "docker build -t pdf-server --build-arg API_KEY=\"r88cGVR8sB5W73hF66MtEgAu2Ajs2Wcdrfu6RMrCLdS6ecCI9YDI4OFWwDiUFuKb\" .",
     "run:docker": "docker run -p 3000:3000 pdf-server"
   },

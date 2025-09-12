@@ -21,4 +21,6 @@ COPY fonts/AP-Regular.ttf /usr/share/fonts/truetype/AP-Regular.ttf
 COPY fonts/AP-Bold.ttf /usr/share/fonts/truetype/AP-Bold.ttf
 RUN fc-cache -fv
 
-CMD ["npm", "start"]
+# CMD ["npm", "start"]
+RUN npm run build
+CMD ["node", "dist/src/app.js"]

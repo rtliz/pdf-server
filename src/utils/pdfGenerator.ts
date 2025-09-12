@@ -16,7 +16,7 @@ export function createPdf(docDefinition: any): Promise<string> {
     const printer = new PdfPrinter(fonts);
     const pdfDoc = printer.createPdfKitDocument(document);
     // const filePath = path.join(__dirname, '../../dist', `review_form_${new Date().getTime()}.pdf`);
-    const filePath = path.join(__dirname, '../../dist', `review_form.pdf`);
+    const filePath = path.join(__dirname, '..', `review_form_${new Date().getTime()}.pdf`);
     const writeStream = fs.createWriteStream(filePath);
 
     pdfDoc.pipe(writeStream);
