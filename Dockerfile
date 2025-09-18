@@ -12,8 +12,9 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /app
 
+RUN mkdir generated_pdfs
 COPY package.json package-lock.json ./
-
+ 
 RUN npm install
 
 COPY . .

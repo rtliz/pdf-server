@@ -16,10 +16,16 @@ function apiKeyCheck(req, res, next) {
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-app.use(express.json({ limit: '10mb' }));  
+app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use(bodyParser.json());
-app.use('/api', apiKeyCheck, pdfRoutes);
+
+// Root route to display "heltechack"
+app.get('/', (req, res) => {
+    res.send('health check nodejs eqn start');
+});
+
+app.use('/', apiKeyCheck, pdfRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server is running on port http://localhost:${PORT}`);

@@ -8,6 +8,7 @@ export interface Question {
     QuestionTitle: string;
     QuestionTitle_EN: string;
     CRMInterface: string;
+    PaperLengthChoiceConfigNo?: number;
 }
 
 export interface Part {

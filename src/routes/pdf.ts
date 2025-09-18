@@ -3,6 +3,6 @@ import { generatePdf } from '../controllers/EquestionnaireController';
 
 const router = Router();
 
-router.post('/equestionnaire/review-form', generatePdf);
+router.post('/paper-form', generatePdf);
 
 export default router;
